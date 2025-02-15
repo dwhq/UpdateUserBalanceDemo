@@ -6,11 +6,15 @@ use Illuminate\Contracts\Queue\ShouldBeUnique;
 
 class UpdateUserBalance implements ShouldQueue, ShouldBeUnique
 {
+
+
     //执行队列
     // php artisan queue:work --daemon
     protected int $userId;
     protected float $amount;
     protected string $remark;
+
+
 
     public function __construct(int $userId, float $amount, string $remark ='')
     {
@@ -19,12 +23,11 @@ class UpdateUserBalance implements ShouldQueue, ShouldBeUnique
         $this->remark = $remark;
     }
 
-// 返回唯一标识符
-    public function uniqueId()
+    // 返回唯一标识符
+    public function uniqueId(): string
     {
         return 'user_balance_' . $this->userId;
     }
-
     public function handle()
     {
         // 仅在金额不为0时执行
